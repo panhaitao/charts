@@ -1,0 +1,26 @@
+name: postgresql
+image: "postgresql:10.4"
+label: "app: postgresql"
+namespace: default
+
+container:
+  port: 5432
+  env:
+    POSTGRES_USER: sonar
+    POSTGRES_PASSWORD: sonar
+    POSTGRE_DB: sonar
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+
+service:
+  port: 5432
+
+storage:
+  size: 10Gi
+
+volumes:
+  host_path: "/datafs/postgresql/"
+  mount_path: "/var/lib/postgresql/data"

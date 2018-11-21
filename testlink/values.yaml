@@ -1,0 +1,25 @@
+name: testlink
+image: "testlink:latest"
+label: "app: testlink"
+namespace: default
+
+container:
+  port: 80
+  env:
+    ALLOW_EMPTY_PASSWORD: yes
+    MARIADB_USER: bn_testlink
+    MARIADB_DATABASE: bitnami_testlink
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+
+service:
+  port: 8000
+
+storage:
+  size: 10Gi 
+volumes:
+  host_path: "/datafs/testlink"
+  mount_path: "/bitnami"

@@ -1,0 +1,24 @@
+name: mysql
+image: "mysql:5.6"
+label: "app: mysql"
+namespace: default
+
+container:
+  port: 3306
+  env:
+    MYSQL_ROOT_PASSWORD: A4h3ljbn
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+
+service:
+  port: 3306
+
+storage:
+  size: 10Gi
+
+volumes:
+  host_path: "/datafs/mysql"
+  mount_path: "/var/lib/mysql"

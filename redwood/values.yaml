@@ -1,0 +1,25 @@
+name: redwood
+image: "redwood:1.2.10"
+label: "app: redwood"
+namespace: default
+
+container:
+  port: 3000
+  env: 
+    MONGO_HOST: "10.103.73.22"
+    MONGO_PORT: "27017"
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+  extra_opts:
+    
+service:
+  port: 3000
+
+storage:
+  size: 10Gi 
+volumes:
+  host_path: "/datafs/redwood/"
+  mount_path: "/RedwoodHQ/public/automationscripts"

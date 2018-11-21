@@ -1,0 +1,22 @@
+name: nexus3
+image: "nexus3:latest"
+label: "app: nexus3"
+namespace: default
+
+container:
+  port: 8081
+  env:
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+
+service:
+  port: 8081
+
+storage:
+  size: 10Gi 
+volumes:
+  host_path: "/datafs/nexus3"
+  mount_path: "/nexus-data"

@@ -1,0 +1,28 @@
+name: sonarqube
+image: "sonarqube:7.1"
+label: "app: sonarqube"
+namespace: default
+
+container:
+  port: 9000 
+  env:
+    SONARQUBE_JDBC_URL: "jdbc:postgresql://postgresql:5432/sona"
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+
+service:
+  port: 9000
+
+storage:
+  size: 10Gi
+
+volumes:
+  - size: 10Gi
+    host_path: "/datafs/sonarqube-data"
+    mount_path: "/opt/sonarqube/data"
+  - size: 10Gi
+    host_path: "/datafs/sonarqube-extensions"
+    mount_path: "/opt/sonarqube/extensions"

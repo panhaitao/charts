@@ -1,0 +1,23 @@
+name: jira
+image: "jira:7.5.2"
+label: "app: jira"
+namespace: default
+
+container:
+  port: 8080
+  env:
+    JAVA_OPTS: "-server -Xms800m -Xmx800m"
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+
+service:
+  port: 8080
+
+storage:
+  size: 10Gi 
+volumes:
+  host_path: "/datafs/jira"
+  mount_path: "/var/lib/mysql"
