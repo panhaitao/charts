@@ -4,7 +4,8 @@ label: "app: mysql"
 namespace: default
 
 container:
-  port: 3306
+  port_map:
+    3306: 3306
   env:
     MYSQL_ROOT_PASSWORD: A4h3ljbn
   resources:
@@ -13,12 +14,8 @@ container:
     mem_requests: 1G
     mem_limits: 1G
 
-service:
-  port: 3306
-
-storage:
-  size: 10Gi
-
 volumes:
-  host_path: "/datafs/mysql"
-  mount_path: "/var/lib/mysql"
+  - name: mysql
+    size: 10Gi
+    host_path: "/datafs/mysql"
+    mount_path: "/var/lib/mysql"

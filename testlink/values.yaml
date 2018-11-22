@@ -1,25 +1,31 @@
 name: testlink
-image: "testlink:latest"
+image: "11.11.174.85:28086/cnpcrd/testlink:bitnami"
 label: "app: testlink"
 namespace: default
 
 container:
-  port: 80
+  port_map:
+    80: 80
+    443: 443
   env:
-    ALLOW_EMPTY_PASSWORD: yes
-    MARIADB_USER: bn_testlink
-    MARIADB_DATABASE: bitnami_testlink
+    MARIADB_HOST: 10.99.77.160
+    MARIADB_PORT_NUMBER: 3306
+    MARIADB_ROOT_USER: root
+    MARIADB_ROOT_PASSWORD: A4h3ljbn
+    TESTLINK_DATABASE_USER: jira
+    TESTLINK_DATABASE_NAME: jiradb
+    TESTLINK_DATABASE_PASSWORD: 123456
+    ALLOW_EMPTY_PASSWORD: no
+    TESTLINK_USERNAME: admin
+    TESTLINK_PASSWORD: admin
   resources:
     cpu_requests: 200m
     cpu_limits: 1
     mem_requests: 1G
     mem_limits: 1G
 
-service:
-  port: 8000
-
-storage:
-  size: 10Gi 
 volumes:
-  host_path: "/datafs/testlink"
-  mount_path: "/bitnami"
+  - name: testlink
+    size: 10Gi 
+    host_path: "/datafs/testlink"
+    mount_path: "/bitnami"

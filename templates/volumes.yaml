@@ -1,30 +1,35 @@
+{{- $ns := .Values.namespace -}}
+{{- $lb := .Values.label -}}
+{{- range .Values.volumes }}
 apiVersion: v1
 kind: PersistentVolume
 metadata: 
-  name: {{ .Values.name }}-pv
-  namespace: {{ .Values.namespace }}
-  labels:
-    {{ .Values.label }}
+  name: {{ .name }}-pv
+  namespace: {{ $ns }}
+  labels: 
+    {{ $lb }}
 spec: 
   capacity:
-    storage: {{ .Values.storage.size }} 
+    storage: {{ .size }} 
   accessModes: 
     - ReadWriteMany
   hostPath:
-    path: {{ .Values.volumes.host_path }}
+    path: {{ .host_path }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata: 
-  name: {{ .Values.name }}-pvc
-  namespace: default
+  name: {{ .name }}-pvc
+  namespace: {{ $ns }}
 spec: 
   accessModes: 
     - ReadWriteMany
-  storageClassName: "" 
+  storageClassname: "" 
   resources: 
     requests: 
-      storage: {{ .Values.storage.size }}
+      storage: {{ .size }}
   selector:
-    matchLabels:
-      {{ .Values.label }} 
+    matchlabels:
+      {{ $lb }}
+---
+{{- end }}

@@ -4,8 +4,8 @@ label: "app: mongodb"
 namespace: default
 
 container:
-  name: mongodb
-  port: 27017
+  port_map:
+    27017: 27017
   env: 
   resources:
     cpu_requests: 200m
@@ -13,11 +13,8 @@ container:
     mem_requests: 1G
     mem_limits: 1G
     
-service:
-  port: 27017
-
-storage:
-  size: 10Gi 
 volumes:
-  host_path: "/datafs/db"
-  mount_path: "/data/db"
+  - name: mongodb
+    size: 10Gi 
+    host_path: "/datafs/db"
+    mount_path: "/data/db"

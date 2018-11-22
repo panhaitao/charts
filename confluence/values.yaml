@@ -4,7 +4,8 @@ label: "app: confluence"
 namespace: default
 
 container:
-  port: 8090
+  port_map:
+    8090: 8090
   env:
     JAVA_OPTS: "-server -Xms800m -Xmx800m"
   resources:
@@ -13,11 +14,8 @@ container:
     mem_requests: 1G
     mem_limits: 1G
 
-service:
-  port: 8090
-
-storage:
-  size: 10Gi 
 volumes:
-  host_path: "/datafs/confluence"
-  mount_path: "/var/atlassian/confluence/shared-home/"
+  - name: confluence 
+    size: 10Gi 
+    host_path: "/datafs/confluence"
+    mount_path: "/var/atlassian/confluence/shared-home/"
