@@ -7,6 +7,11 @@ metadata:
     {{ .Values.label }}
 spec:
   ports:
-    - port: {{ .Values.service.port }}
+  {{- range $port,$targetPort := .Values.container.port_map }}
+  - name: tcp-{{ $targetPort }}
+    port: {{ $port }}
+    protocol: TCP
+    targetPort: {{ $targetPort }}
+  {{- end }} 
   selector:
     {{ .Values.label }}

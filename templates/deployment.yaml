@@ -20,14 +20,13 @@ spec:
         env:
         {{- range $key, $value := .Values.container.env }}
           - name: {{ $key }}
-            value: {{ $value }}
+            value: "{{ $value }}"
         {{- end }}
-        ports:
-        - containerPort: {{ .Values.container.port }}
-          name: {{ .Values.name }}
         volumeMounts:
-        - name: {{ .Values.name }}-storage
-          mountPath: {{ .Values.volumes.mount_path }}
+        {{- range .Values.volumes }} 
+        - name: {{ .name }}-storage
+          mountPath: {{ .mount_path }}
+        {{- end }}
         resources:
           limits:
             cpu: {{ default "1" .Values.container.resources.cpu_limits }}
@@ -36,9 +35,11 @@ spec:
             cpu: {{ default "200m" .Values.container.resources.cpu_requests }}
             memory: {{ default "1G" .Values.container.resources.mem_requests }}
         {{- range $key, $value := .Values.container.extra_opts }}
-        {{ $key }}: {{ $value }} 
+        {{ $key }}: "{{ $value }}" 
         {{- end }}
       volumes:
-      - name: {{ .Values.name }}-storage
+      {{- range .Values.volumes }}
+      - name: {{ .name }}-storage
         persistentVolumeClaim:
-          claimName: {{ .Values.name }}-pvc
+          claimName: {{ .name }}-pvc
+      {{- end }}
