@@ -8,15 +8,14 @@
 
 * confluence
 * jira
-* mongodb
-* mysql
-* nexus3
-* postgresql
 * redwood
 * sonarqube
 * testlink 
+* nexus3
 
 # 已知问题
 
 1. 目前不支持多容器
+2. confluence jira redwood 基本运行测试通过
+3. sonarqube testlink nexus3 运行测试未通过
 

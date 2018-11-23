@@ -7,7 +7,7 @@ container:
   port_map:
     3000: 3000
   env: 
-    MONGO_HOST: 10.97.156.139
+    MONGO_HOST: mongodb-service
     MONGO_PORT: '27017'
   resources:
     cpu_requests: 200m
@@ -19,5 +19,7 @@ container:
 volumes:
   - name: rewood
     size: 10Gi 
-    host_path: "/datafs/redwood/"
+    nfs:
+      path: "/datafs/redwood/"
+      server: "192.168.3.220"
     mount_path: "/RedwoodHQ/public/automationscripts"

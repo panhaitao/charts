@@ -17,9 +17,13 @@ container:
 volumes:
   - name: sonarqube-data
     size: 10Gi
-    host_path: "/datafs/sonarqube-data"
+    nfs:
+      path: "/datafs/sonarqube-data"
+      server: "192.168.3.220"
     mount_path: "/opt/sonarqube/data"
   - name: sonrqube-extensions
     size: 10Gi
-    host_path: "/datafs/sonarqube-extensions"
+    nfs:
+      path: "/datafs/sonarqube-extensions"
+      server: "192.168.3.220"
     mount_path: "/opt/sonarqube/extensions"

@@ -16,5 +16,7 @@ container:
 volumes:
   - name: nexus3
     size: 10Gi 
-    host_path: "/datafs/nexus3"
+    nfs:
+      path: "/datafs/nexus3"
+      server: "192.168.3.220"
     mount_path: "/nexus-data"

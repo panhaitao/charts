@@ -27,5 +27,7 @@ container:
 volumes:
   - name: testlink
     size: 10Gi 
-    host_path: "/datafs/testlink"
+    nfs:
+      path: "/datafs/testlink"
+      server: "192.168.3.220"
     mount_path: "/bitnami"

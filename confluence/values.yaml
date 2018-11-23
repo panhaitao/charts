@@ -17,5 +17,7 @@ container:
 volumes:
   - name: confluence 
     size: 10Gi 
-    host_path: "/datafs/confluence"
+    nfs:
+      path: "/datafs/confluence"
+      server: "192.168.3.220"
     mount_path: "/var/atlassian/confluence/shared-home/"

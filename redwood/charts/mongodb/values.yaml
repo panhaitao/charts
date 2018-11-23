@@ -16,5 +16,7 @@ container:
 volumes:
   - name: mongodb
     size: 10Gi 
-    host_path: "/datafs/db"
+    nfs:
+      path: "/datafs/db"
+      server: "192.168.3.220"
     mount_path: "/data/db"

@@ -15,7 +15,15 @@ container:
     mem_limits: 1G
 
 volumes:
-  - name: jira
+  - name: jira-data
     size: 10Gi 
-    host_path: "/datafs/jira"
-    mount_path: "/var/lib/mysql"
+    nfs:
+      path: "/datafs/jira"
+      server: "192.168.3.220"
+    mount_path: "/var/atlassian/jira"
+  - name: jira-log
+    size: 10Gi 
+    nfs:
+      path: "/datafs/jira"
+      server: "192.168.3.220"
+    mount_path: "/opt/atlassian/jira/logs"
