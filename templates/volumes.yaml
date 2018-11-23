@@ -13,8 +13,9 @@ spec:
     storage: {{ .size }} 
   accessModes: 
     - ReadWriteMany
-  hostPath:
-    path: {{ .host_path }}
+  nfs:
+    path: "{{ .nfs.path }}"
+    server: "{{ .nfs.server }}"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
