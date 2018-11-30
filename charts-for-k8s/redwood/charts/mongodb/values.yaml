@@ -1,0 +1,22 @@
+name: mongodb
+image: "index.alauda.cn/alaudaorg/qaimages:mongodbv2"
+label: "app: mongodb"
+namespace: default
+
+container:
+  port_map:
+    27017: 27017
+  env: 
+  resources:
+    cpu_requests: 200m
+    cpu_limits: 1
+    mem_requests: 1G
+    mem_limits: 1G
+    
+volumes:
+  - name: mongodb
+    size: 10Gi 
+    nfs:
+      path: "/datafs/db"
+      server: "192.168.3.220"
+    mount_path: "/data/db"
