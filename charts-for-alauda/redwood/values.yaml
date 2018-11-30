@@ -1,0 +1,54 @@
+mongodb:
+  name: mongodb
+  image: "11.11.110.94:5000/mongodb:v2"
+  label: "app: mongodb"
+  
+  container:
+    port_map:
+      27017: 27017
+    resources:
+      cpu_requests: 200m
+      cpu_limits: 1
+      mem_requests: 1G
+      mem_limits: 1G
+    env_enabled: false
+    env: 
+    extra_opts:
+      imagePullPolicy: Always
+      
+  volumes:
+    mongodb-data:
+      name: mongodb
+      size: 10Gi
+      nfs:
+        path: "/NFS_SMARTX/rd-devops/redwooddb"
+        server: "11.11.113.85"
+      mount_path: "/data/db"
+redwood:
+  name: redwood
+  image: "11.11.110.94:5000/redwood:1.2.10"
+  label: "app: redwood"
+  
+  container:
+    port_map:
+      3000: 3000
+    env_enabled: true
+    env: 
+      MONGO_HOST: mongodb-service
+      MONGO_PORT: '27017'
+    resources:
+      cpu_requests: 200m
+      cpu_limits: 1
+      mem_requests: 1G
+      mem_limits: 1G
+    extra_opts:
+      imagePullPolicy: Always
+      
+  volumes:
+    redwood-data:
+      name: redwood
+      size: 10Gi
+      nfs:
+        path: "/NFS_SMARTX/rd-devops/redwood"
+        server: "11.11.113.85"
+      mount_path: "/RedwoodHQ/public/automationscripts"

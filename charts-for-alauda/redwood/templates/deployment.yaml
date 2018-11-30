@@ -1,0 +1,50 @@
+{{- range .Values }}
+apiVersion: extensions/v1beta1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  labels: 
+    {{ .label }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{ .label }}
+  template:
+    metadata:
+      labels:
+        {{ .label }} 
+    spec:
+      containers:
+      - name: {{ .name }}
+        image: {{ .image }}
+        {{- if eq .container.env_enabled true }}
+        env:
+          {{- range $key, $value := .container.env }}
+          - name: {{ $key }}
+            value: "{{ $value }}"
+          {{- end }}
+        {{- end }}
+        volumeMounts:
+        {{- range .volumes }} 
+        - name: {{ .name }}-storage
+          mountPath: {{ .mount_path }}
+        {{- end }}
+        resources:
+          limits:
+            cpu: {{ default "1" .container.resources.cpu_limits }}
+            memory: {{ default "1G" .container.resources.mem_limits }}
+          requests:
+            cpu: {{ default "200m" .container.resources.cpu_requests }}
+            memory: {{ default "1G" .container.resources.mem_requests }}
+        {{- range $key, $value := .container.extra_opts }}
+        {{ $key }}: "{{ $value }}" 
+        {{- end }}
+      volumes:
+      {{- range .volumes }}
+      - name: {{ .name }}-storage
+        persistentVolumeClaim:
+          claimName: {{ .name }}-pvc
+      {{- end }}
+---
+{{- end }}

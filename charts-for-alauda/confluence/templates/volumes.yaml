@@ -1,0 +1,17 @@
+{{- $ns := .Values.namespace -}}
+{{- $lb := .Values.label -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+  name: {{ .name }}-pvc
+  namespace: {{ $ns }}
+spec: 
+  accessModes: 
+    - ReadWriteMany
+  storageClassname: "" 
+  resources: 
+    requests: 
+      storage: {{ .size }}
+  selector:
+    matchlabels:
+      {{ $lb }}

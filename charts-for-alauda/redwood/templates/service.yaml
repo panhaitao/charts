@@ -1,0 +1,20 @@
+{{- range .Values }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}-service
+  labels:
+    {{ .label }}
+spec:
+  ports:
+  {{- range $port,$targetPort := .container.port_map }}
+  - name: tcp-{{ $targetPort }}
+    port: {{ $port }}
+    protocol: TCP
+    targetPort: {{ $targetPort }}
+  {{- end }} 
+  selector:
+    {{ .label }}
+---
+{{- end }}
+
