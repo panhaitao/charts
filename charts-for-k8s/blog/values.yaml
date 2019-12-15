@@ -1,0 +1,18 @@
+name: blog
+image: "docker.io/onwalk/markdownblog:latest"
+label: "app: blog"
+namespace: web
+
+container:
+  port_map:
+    80: 5000
+  resources:
+    cpu_requests: 20m
+    cpu_limits: 500m
+    mem_requests: 128Mi
+    mem_limits: 512Mi
+volumes:
+  - name: blog-data
+    size: "512Mi"
+    path: "/Users/shenlan/workspace/SoldierNote/Archive/"
+    mount_path: "/blog/markdown/"
