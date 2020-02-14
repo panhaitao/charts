@@ -1,4 +1,0 @@
-apiVersion: v1
-name: nexus3
-version: 0.0.1
-description: nexus属于基础服务，所以request和limit的值最好相同。生产环境的request和limit数值需要2c,4g以上。现在平台不支持自动创建 nfs/nas类型的pv，需要联系管理员再后台创建
